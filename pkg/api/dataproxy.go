@@ -17,6 +17,7 @@ import (
 	m "github.com/grafana/grafana/pkg/models"
 	"github.com/grafana/grafana/pkg/setting"
 	"github.com/grafana/grafana/pkg/util"
+	"os"
 )
 
 var (
@@ -155,7 +156,9 @@ func logProxyRequest(dataSourceType string, c *middleware.Context) {
 			body = string(buffer)
 		}
 	}
-
+	dataproxyLogger.Info("https_proxy values",
+		"HTTPS_PROXY", os.Getenv("HTTPS_PROXY"),
+		"https_proxy", os.Getenv("https_proxy"))
 	dataproxyLogger.Info("Proxying incoming request",
 		"userid", c.UserId,
 		"orgid", c.OrgId,
